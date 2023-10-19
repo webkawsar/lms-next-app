@@ -12,7 +12,7 @@ const ClientPage = () => {
       }
   })
 
-  console.log(session, 'client session')
+  // console.log(session, 'client session')
 
 
 
