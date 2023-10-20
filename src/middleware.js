@@ -1,18 +1,19 @@
-// export { default } from 'next-auth/middleware';
+export { default } from 'next-auth/middleware';
 
- 
-export function middleware(request) {
+// import { NextResponse } from "next/server"
+// export function middleware(request) {
 
-    console.log(request, 'request')
+//     console.log(request, 'request')
 
 //   if (request.nextUrl.pathname.startsWith('/extra') && request?.nextauth?.token?.role !== 'admin') {
 //     return NextResponse.rewrite(new URL('/denied', request.url))
 //   }
  
+
 //   if (request.nextUrl.pathname.startsWith('/dashboard')) {
 //     return NextResponse.rewrite(new URL('/dashboard/user', request.url))
 //   }
 
-}
+// }
 
 export const config = { matcher: ['/extra'] }

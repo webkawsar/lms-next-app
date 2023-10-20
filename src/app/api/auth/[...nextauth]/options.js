@@ -1,3 +1,4 @@
+import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 
@@ -20,14 +21,25 @@ export const authOptions = {
         },
         async authorize(credentials) {
 
-          // console.log(credentials, 'credentials')
+          console.log(credentials, 'credentials')
+
           // database query 
-          const user = {id: 101, name: 'kawsar', password: '123', role: 'user'};
-          if(credentials?.username === user.name && credentials?.password === user.password) {
-            return user;
-          } else {
-            return null;
-          }
+          const user = await axios.post(`${process.env.STRAPI_SERVER_URL}/api/auth/local`, {
+            identifier: credentials.identifier,
+            password: credentials.password
+          })
+          console.log(user, 'user')
+
+
+
+          // const user = {id: 101, name: 'kawsar', password: '123', role: 'user'};
+          // if(credentials?.username === user.name && credentials?.password === user.password) {
+          //   return user;
+          // } else {
+          //   return null;
+          // }
+
+
         }
       }),
       GithubProvider({
