@@ -8,7 +8,7 @@ export const authOptions = {
     // Configure one or more authentication providers
     providers: [
       CredentialsProvider({
-        name: 'Credentials',
+        name: 'Email',
         credentials: {
           username: {
             label: 'Username',
@@ -31,7 +31,6 @@ export const authOptions = {
               password: credentials.password
             })
 
-            // console.log(data, 'data')
             return data;
             
           } catch (error) {
@@ -61,18 +60,26 @@ export const authOptions = {
       // ...add more providers here
     ],
     callbacks: {
-      async jwt({ token, user }) {
+      async jwt({ token, user, account, profile, isNewUser }) {
 
-        // console.log(token, 'token')
-        // console.log(user, 'user')
+        const isSignIn = user ? true : false;
+        if (isSignIn) {
+          
+          token.id = user.user.id;
+          token.jwt = user.jwt;
+          token.user = user.user;
+        }
 
-        if(user) token.role = user.role;
-        return token;
+        return Promise.resolve(token);
       },
-      async session({ session, token }) {
+      async session({ session, token, user }) {
 
-        if(session?.user) session.user.role = token.role
-        return session;
+        // modify for front-end
+        session.id = token.id;
+        session.accessToken = token.accessToken;
+        session.user = token.user;
+      
+        return Promise.resolve(session);
       }
     }
 }
