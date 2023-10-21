@@ -1,6 +1,7 @@
 "use client"
 
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const strapi = process.env.NEXT_PUBLIC_STRAPI_SERVER_URL;
 
@@ -8,14 +9,25 @@ const strapi = process.env.NEXT_PUBLIC_STRAPI_SERVER_URL;
 const Register = () => {
 
   const handleSubmit = async () => {
-    
-    const result = await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`, {
-      username: 'webkawsar',
-      email: 'web.kawsarahmed@gmail.com',
-      password: 'abc123',
-    })
+    try {
 
-    console.log(result, 'result')
+      const result = await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`, {
+        username: 'webkawsar',
+        email: 'web.kawsarahmed@gmail.com',
+        password: 'abc123',
+      })
+  
+      console.log(result, 'result')
+
+      // show success message
+      toast.success("Registration successful!");
+
+      
+    } catch (error) {
+      console.log(error?.response?.data?.error?.message, 'error')
+      // show error message
+      toast.error(error?.response?.data?.error?.message ?? 'Something went wrong!');
+    }
   }
 
   return (
