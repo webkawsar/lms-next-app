@@ -2,6 +2,8 @@ import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 
+const SERVER_API_URL = process.env.NEXT_PUBLIC_STRAPI_SERVER_URL || 'http://127.0.0.1:1337'
+
 export const authOptions = {
     // Configure one or more authentication providers
     providers: [
@@ -21,24 +23,21 @@ export const authOptions = {
         },
         async authorize(credentials) {
 
-          console.log(credentials, 'credentials')
+          // database query for checking strapi user exists or not
+          try {
 
-          // database query 
-          const user = await axios.post(`${process.env.STRAPI_SERVER_URL}/api/auth/local`, {
-            identifier: credentials.identifier,
-            password: credentials.password
-          })
-          console.log(user, 'user')
+            const { data } = await axios.post(`${SERVER_API_URL}/api/auth/local`, {
+              identifier: credentials.identifier,
+              password: credentials.password
+            })
 
+            // console.log(data, 'data')
+            return data;
+            
+          } catch (error) {
 
-
-          // const user = {id: 101, name: 'kawsar', password: '123', role: 'user'};
-          // if(credentials?.username === user.name && credentials?.password === user.password) {
-          //   return user;
-          // } else {
-          //   return null;
-          // }
-
+            return null;
+          }
 
         }
       }),

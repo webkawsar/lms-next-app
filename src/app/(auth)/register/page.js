@@ -3,7 +3,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const strapi = process.env.NEXT_PUBLIC_STRAPI_SERVER_URL;
+
+
 
 
 const Register = () => {
@@ -12,8 +13,8 @@ const Register = () => {
     try {
 
       const result = await axios.post(`${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`, {
-        username: 'webkawsar',
-        email: 'web.kawsarahmed@gmail.com',
+        username: 'webkawsar123',
+        email: 'web.kawsarahmed123@gmail.com',
         password: 'abc123',
       })
   
@@ -22,9 +23,10 @@ const Register = () => {
       // show success message
       toast.success("Registration successful!");
 
-      
     } catch (error) {
-      console.log(error?.response?.data?.error?.message, 'error')
+
+      console.log(error?.response?.data?.error, 'error')
+
       // show error message
       toast.error(error?.response?.data?.error?.message ?? 'Something went wrong!');
     }

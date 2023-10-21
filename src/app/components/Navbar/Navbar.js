@@ -20,7 +20,9 @@ const Navbar = async () => {
           <li><Link href="/client">Client</Link></li>
           <li><Link href="/extra">Extra</Link></li>
           <li><Link href="/api/auth/signin">Sign In</Link></li>
+          <li><Link href="/login">Login</Link></li>
           <li><Link href="/api/auth/signout">Sign Out</Link></li>
+          <li><Link href="/register">Register</Link></li>
         </ul>
       </nav>
     </div>
