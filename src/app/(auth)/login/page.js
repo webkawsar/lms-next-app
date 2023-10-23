@@ -4,13 +4,31 @@ import Breadcrumb from "@/app/components/Breadcrumb/Breadcrumb";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebookF, FaGooglePlusG } from "react-icons/fa6";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const defaultValues = {
-  email: "",
+  identifier: "",
   password: "",
 };
 
+const schema = yup
+  .object({
+    identifier: yup
+      .string()
+      .trim()
+      .required("Username or email is required")
+      .lowercase(),
+    password: yup.string().trim().required("Password is required"),
+  })
+  .required();
+
 const Login = () => {
+  const router = useRouter();
   const [isActive, setIsActive] = useState("login");
   const handelModal = (param) => {
     setIsActive(param);
@@ -19,13 +37,41 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isLoading },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const onSubmit = (data) => {
-    console.log("form is submitted");
-    console.log(data, "data");
+  const onSubmit = async (data) => {
+    try {
+      const result = await signIn("credentials", {
+        redirect: true,
+        identifier: data.identifier,
+        password: data.password,
+      });
+
+      console.log(result, "result");
+
+      if (result.ok) {
+        // show success message
+        toast.success("Login success!");
+
+        // send to
+        router.replace("/dashboard");
+      } else {
+        // show error message
+        toast.error("Invalid email or password!");
+      }
+    } catch (error) {
+      // show error message
+      toast.error(
+        error?.response?.data?.error?.message ?? "Something went wrong!"
+      );
+    }
+  };
+
+  const handleGithubLogin = () => {
+    signIn("github", { redirect: "/client" });
   };
 
   return (
@@ -44,7 +90,9 @@ const Login = () => {
                 <li className="nav-item" role="presentation">
                   <button
                     onClick={() => handelModal("login")}
-                    className="single__tab__link active"
+                    className={`single__tab__link ${
+                      isActive === "login" ? "active" : ""
+                    }`}
                     data-bs-toggle="tab"
                     data-bs-target="#projects__one"
                     type="button"
@@ -55,7 +103,9 @@ const Login = () => {
                 <li className="nav-item" role="presentation">
                   <button
                     onClick={() => handelModal("register")}
-                    className="single__tab__link"
+                    className={`single__tab__link ${
+                      isActive === "register" ? "active" : ""
+                    }`}
                     data-bs-toggle="tab"
                     data-bs-target="#projects__two"
                     type="button"
@@ -102,7 +152,17 @@ const Login = () => {
                           className="common__login__input"
                           type="text"
                           placeholder="Your username or email"
+                          {...register("identifier")}
                         />
+
+                        {errors?.identifier?.message && (
+                          <div
+                            class="invalid-feedback"
+                            style={{ display: "block" }}
+                          >
+                            {errors?.identifier?.message}
+                          </div>
+                        )}
                       </div>
                       <div className="login__form">
                         <label className="form__label">Password</label>
@@ -110,7 +170,17 @@ const Login = () => {
                           className="common__login__input"
                           type="password"
                           placeholder="Password"
+                          {...register("password")}
                         />
+
+                        {errors?.password?.message && (
+                          <div
+                            class="invalid-feedback"
+                            style={{ display: "block" }}
+                          >
+                            {errors?.password?.message}
+                          </div>
+                        )}
                       </div>
                       <div className="login__form d-flex justify-content-between flex-wrap gap-2">
                         <div className="form__check">
@@ -122,12 +192,15 @@ const Login = () => {
                         </div>
                       </div>
                       <div className="login__button">
-                        <button className="default__button" type="submit">
+                        <button
+                          className="default__button"
+                          type="submit"
+                          disabled={isLoading}
+                        >
                           Log In
                         </button>
                       </div>
                     </form>
-
                     <div className="login__social__option">
                       <p>or Log-in with</p>
 
@@ -140,13 +213,17 @@ const Login = () => {
                             <FaFacebookF className="mr-1" /> Facebook
                           </a>
                         </li>
-                        <li>
+                        {/* <li>
                           <a
                             className="default__button d-flex align-items-center"
                             href="#"
                           >
                             <FaGooglePlusG className="mr-1" /> Google
                           </a>
+                        </li> */}
+
+                        <li>
+                          <button onClick={handleGithubLogin}>Github</button>
                         </li>
                       </ul>
                     </div>
@@ -168,13 +245,13 @@ const Login = () => {
                       <h5 className="login__title">Register</h5>
                       <p className="login__description">
                         Already have an account?{" "}
-                        <a
-                          href="#"
+                        <button
+                          onClick={() => handelModal("login")}
                           data-bs-toggle="modal"
                           data-bs-target="#registerModal"
                         >
                           Log In
-                        </a>
+                        </button>
                       </p>
                     </div>
 
