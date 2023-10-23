@@ -2,12 +2,30 @@
 
 import Breadcrumb from "@/app/components/Breadcrumb/Breadcrumb";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaFacebookF, FaGooglePlusG } from "react-icons/fa6";
+
+const defaultValues = {
+  email: "",
+  password: "",
+};
 
 const Login = () => {
   const [isActive, setIsActive] = useState("login");
   const handelModal = (param) => {
     setIsActive(param);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log("form is submitted");
+    console.log(data, "data");
   };
 
   return (
@@ -77,7 +95,7 @@ const Login = () => {
                       </p>
                     </div>
 
-                    <form action="#">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="login__form">
                         <label className="form__label">Username or email</label>
                         <input
@@ -104,9 +122,9 @@ const Login = () => {
                         </div>
                       </div>
                       <div className="login__button">
-                        <a className="default__button" href="#">
+                        <button className="default__button" type="submit">
                           Log In
-                        </a>
+                        </button>
                       </div>
                     </form>
 
@@ -160,7 +178,7 @@ const Login = () => {
                       </p>
                     </div>
 
-                    <form action="#">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="row">
                         <div className="col-xl-6">
                           <div className="login__form">
