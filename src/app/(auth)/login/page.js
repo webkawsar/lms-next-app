@@ -1,17 +1,18 @@
 import React from "react";
+import { FaFacebookF, FaGooglePlusG } from "react-icons/fa6";
 
 const Login = () => {
   return (
     <div>
-      <div class="breadcrumbarea">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-12">
-              <div class="breadcrumb__content__wraper" data-aos="fade-up">
-                <div class="breadcrumb__title">
-                  <h2 class="heading">Log In</h2>
+      <div className="breadcrumbarea">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-12">
+              <div className="breadcrumb__content__wraper" data-aos="fade-up">
+                <div className="breadcrumb__title">
+                  <h2 className="heading">Log In</h2>
                 </div>
-                <div class="breadcrumb__inner">
+                <div className="breadcrumb__inner">
                   <ul>
                     <li>
                       <a href="index.html">Home</a>
@@ -24,42 +25,42 @@ const Login = () => {
           </div>
         </div>
 
-        <div class="shape__icon__2">
+        <div className="shape__icon__2">
           <img
-            class=" shape__icon__img shape__icon__img__1"
+            className=" shape__icon__img shape__icon__img__1"
             src="img/herobanner/herobanner__1.png"
             alt="photo"
           />
           <img
-            class=" shape__icon__img shape__icon__img__2"
+            className=" shape__icon__img shape__icon__img__2"
             src="img/herobanner/herobanner__2.png"
             alt="photo"
           />
           <img
-            class=" shape__icon__img shape__icon__img__3"
+            className=" shape__icon__img shape__icon__img__3"
             src="img/herobanner/herobanner__3.png"
             alt="photo"
           />
           <img
-            class=" shape__icon__img shape__icon__img__4"
+            className=" shape__icon__img shape__icon__img__4"
             src="img/herobanner/herobanner__5.png"
             alt="photo"
           />
         </div>
       </div>
 
-      <div class="loginarea sp_top_100 sp_bottom_100">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-8 col-md-8 offset-md-2" data-aos="fade-up">
+      <div className="loginarea sp_top_100 sp_bottom_100">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-8 col-md-8 offset-md-2" data-aos="fade-up">
               <ul
-                class="nav  tab__button__wrap text-center"
+                className="nav  tab__button__wrap text-center"
                 id="myTab"
                 role="tablist"
               >
-                <li class="nav-item" role="presentation">
+                <li className="nav-item" role="presentation">
                   <button
-                    class="single__tab__link active"
+                    className="single__tab__link active"
                     data-bs-toggle="tab"
                     data-bs-target="#projects__one"
                     type="button"
@@ -67,9 +68,9 @@ const Login = () => {
                     Login
                   </button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li className="nav-item" role="presentation">
                   <button
-                    class="single__tab__link"
+                    className="single__tab__link"
                     data-bs-toggle="tab"
                     data-bs-target="#projects__two"
                     type="button"
@@ -81,21 +82,21 @@ const Login = () => {
             </div>
 
             <div
-              class="tab-content tab__content__wrapper"
+              className="tab-content tab__content__wrapper"
               id="myTabContent"
               data-aos="fade-up"
             >
               <div
-                class="tab-pane fade active show"
+                className="tab-pane fade active show"
                 id="projects__one"
                 role="tabpanel"
                 aria-labelledby="projects__one"
               >
-                <div class="col-xl-8 col-md-8 offset-md-2">
-                  <div class="loginarea__wraper">
-                    <div class="login__heading">
-                      <h5 class="login__title">Login</h5>
-                      <p class="login__description">
+                <div className="col-xl-8 col-md-8 offset-md-2">
+                  <div className="loginarea__wraper">
+                    <div className="login__heading">
+                      <h5 className="login__title">Login</h5>
+                      <p className="login__description">
                         Don't have an account yet?{" "}
                         <a
                           href="#"
@@ -108,50 +109,56 @@ const Login = () => {
                     </div>
 
                     <form action="#">
-                      <div class="login__form">
-                        <label class="form__label">Username or email</label>
+                      <div className="login__form">
+                        <label className="form__label">Username or email</label>
                         <input
-                          class="common__login__input"
+                          className="common__login__input"
                           type="text"
                           placeholder="Your username or email"
                         />
                       </div>
-                      <div class="login__form">
-                        <label class="form__label">Password</label>
+                      <div className="login__form">
+                        <label className="form__label">Password</label>
                         <input
-                          class="common__login__input"
+                          className="common__login__input"
                           type="password"
                           placeholder="Password"
                         />
                       </div>
-                      <div class="login__form d-flex justify-content-between flex-wrap gap-2">
-                        <div class="form__check">
+                      <div className="login__form d-flex justify-content-between flex-wrap gap-2">
+                        <div className="form__check">
                           <input id="forgot" type="checkbox" />
-                          <label for="forgot"> Remember me</label>
+                          <label htmlFor="forgot"> Remember me</label>
                         </div>
-                        <div class="text-end login__form__link">
+                        <div className="text-end login__form__link">
                           <a href="#">Forgot your password?</a>
                         </div>
                       </div>
-                      <div class="login__button">
-                        <a class="default__button" href="#">
+                      <div className="login__button">
+                        <a className="default__button" href="#">
                           Log In
                         </a>
                       </div>
                     </form>
 
-                    <div class="login__social__option">
+                    <div className="login__social__option">
                       <p>or Log-in with</p>
 
-                      <ul class="login__social__btn">
+                      <ul className="login__social__btn">
                         <li>
-                          <a class="default__button login__button__1" href="#">
-                            <i class="icofont-facebook"></i> Gacebook
+                          <a
+                            className="default__button login__button__1 d-flex align-items-center"
+                            href="#"
+                          >
+                            <FaFacebookF className="mr-1" /> Facebook
                           </a>
                         </li>
                         <li>
-                          <a class="default__button" href="#">
-                            <i class="icofont-google-plus"></i> Google
+                          <a
+                            className="default__button d-flex align-items-center"
+                            href="#"
+                          >
+                            <FaGooglePlusG className="mr-1" /> Google
                           </a>
                         </li>
                       </ul>
@@ -161,16 +168,16 @@ const Login = () => {
               </div>
 
               <div
-                class="tab-pane fade"
+                className="tab-pane fade"
                 id="projects__two"
                 role="tabpanel"
                 aria-labelledby="projects__two"
               >
-                <div class="col-xl-8 offset-md-2">
-                  <div class="loginarea__wraper">
-                    <div class="login__heading">
-                      <h5 class="login__title">Sing Up</h5>
-                      <p class="login__description">
+                <div className="col-xl-8 offset-md-2">
+                  <div className="loginarea__wraper">
+                    <div className="login__heading">
+                      <h5 className="login__title">Sing Up</h5>
+                      <p className="login__description">
                         Already have an account?{" "}
                         <a
                           href="#"
@@ -183,62 +190,64 @@ const Login = () => {
                     </div>
 
                     <form action="#">
-                      <div class="row">
-                        <div class="col-xl-6">
-                          <div class="login__form">
-                            <label class="form__label">First Name</label>
+                      <div className="row">
+                        <div className="col-xl-6">
+                          <div className="login__form">
+                            <label className="form__label">First Name</label>
                             <input
-                              class="common__login__input"
+                              className="common__login__input"
                               type="text"
                               placeholder="First Name"
                             />
                           </div>
                         </div>
-                        <div class="col-xl-6">
-                          <div class="login__form">
-                            <label class="form__label">Last Name</label>
+                        <div className="col-xl-6">
+                          <div className="login__form">
+                            <label className="form__label">Last Name</label>
                             <input
-                              class="common__login__input"
+                              className="common__login__input"
                               type="password"
                               placeholder="Last Name"
                             />
                           </div>
                         </div>
-                        <div class="col-xl-6">
-                          <div class="login__form">
-                            <label class="form__label">Username</label>
+                        <div className="col-xl-6">
+                          <div className="login__form">
+                            <label className="form__label">Username</label>
                             <input
-                              class="common__login__input"
+                              className="common__login__input"
                               type="password"
                               placeholder="Username"
                             />
                           </div>
                         </div>
-                        <div class="col-xl-6">
-                          <div class="login__form">
-                            <label class="form__label">Email</label>
+                        <div className="col-xl-6">
+                          <div className="login__form">
+                            <label className="form__label">Email</label>
                             <input
-                              class="common__login__input"
+                              className="common__login__input"
                               type="password"
                               placeholder="Your Email"
                             />
                           </div>
                         </div>
-                        <div class="col-xl-6">
-                          <div class="login__form">
-                            <label class="form__label">Password</label>
+                        <div className="col-xl-6">
+                          <div className="login__form">
+                            <label className="form__label">Password</label>
                             <input
-                              class="common__login__input"
+                              className="common__login__input"
                               type="password"
                               placeholder="Password"
                             />
                           </div>
                         </div>
-                        <div class="col-xl-6">
-                          <div class="login__form">
-                            <label class="form__label">Re-Enter Password</label>
+                        <div className="col-xl-6">
+                          <div className="login__form">
+                            <label className="form__label">
+                              Re-Enter Password
+                            </label>
                             <input
-                              class="common__login__input"
+                              className="common__login__input"
                               type="password"
                               placeholder="Re-Enter Password"
                             />
@@ -246,16 +255,16 @@ const Login = () => {
                         </div>
                       </div>
 
-                      <div class="login__form d-flex justify-content-between flex-wrap gap-2">
-                        <div class="form__check">
+                      <div className="login__form d-flex justify-content-between flex-wrap gap-2">
+                        <div className="form__check">
                           <input id="accept_pp" type="checkbox" />{" "}
-                          <label for="accept_pp">
+                          <label htmlFor="accept_pp">
                             Accept the Terms and Privacy Policy
                           </label>
                         </div>
                       </div>
-                      <div class="login__button">
-                        <a class="default__button" href="#">
+                      <div className="login__button">
+                        <a className="default__button" href="#">
                           Log In
                         </a>
                       </div>
@@ -266,24 +275,24 @@ const Login = () => {
             </div>
           </div>
 
-          <div class=" login__shape__img educationarea__shape_image">
+          <div className=" login__shape__img educationarea__shape_image">
             <img
-              class="hero__shape hero__shape__1"
+              className="hero__shape hero__shape__1"
               src="img/education/hero_shape2.png"
               alt="Shape"
             />
             <img
-              class="hero__shape hero__shape__2"
+              className="hero__shape hero__shape__2"
               src="img/education/hero_shape3.png"
               alt="Shape"
             />
             <img
-              class="hero__shape hero__shape__3"
+              className="hero__shape hero__shape__3"
               src="img/education/hero_shape4.png"
               alt="Shape"
             />
             <img
-              class="hero__shape hero__shape__4"
+              className="hero__shape hero__shape__4"
               src="img/education/hero_shape5.png"
               alt="Shape"
             />
