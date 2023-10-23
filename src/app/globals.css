@@ -10761,22 +10761,21 @@ Breadcrumb Area
 }
 .breadcrumb__inner ul li a {
   position: relative;
-  padding-right: 26px;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 22px;
   color: var(--blackColor2);
 }
 .breadcrumb__inner ul li a:hover {
   color: var(--primaryColor);
 }
-.breadcrumb__inner ul li a:after {
+/* .breadcrumb__inner ul li a:after {
   position: absolute;
   content: "\eaa0";
   font-family: "icofont";
   top: 0px;
   right: 3px;
-}
+} */
 
 .breadcrumbarea--3 .blogarae__img__2.course__details__img__2 {
   margin-bottom: 0;

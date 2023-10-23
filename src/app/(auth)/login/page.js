@@ -1,53 +1,18 @@
-import React from "react";
+"use client";
+
+import Breadcrumb from "@/app/components/Breadcrumb/Breadcrumb";
+import React, { useState } from "react";
 import { FaFacebookF, FaGooglePlusG } from "react-icons/fa6";
 
 const Login = () => {
+  const [isActive, setIsActive] = useState("login");
+  const handelModal = (param) => {
+    setIsActive(param);
+  };
+
   return (
     <div>
-      <div className="breadcrumbarea">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="breadcrumb__content__wraper" data-aos="fade-up">
-                <div className="breadcrumb__title">
-                  <h2 className="heading">Log In</h2>
-                </div>
-                <div className="breadcrumb__inner">
-                  <ul>
-                    <li>
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li>Log In</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="shape__icon__2">
-          <img
-            className=" shape__icon__img shape__icon__img__1"
-            src="img/herobanner/herobanner__1.png"
-            alt="photo"
-          />
-          <img
-            className=" shape__icon__img shape__icon__img__2"
-            src="img/herobanner/herobanner__2.png"
-            alt="photo"
-          />
-          <img
-            className=" shape__icon__img shape__icon__img__3"
-            src="img/herobanner/herobanner__3.png"
-            alt="photo"
-          />
-          <img
-            className=" shape__icon__img shape__icon__img__4"
-            src="img/herobanner/herobanner__5.png"
-            alt="photo"
-          />
-        </div>
-      </div>
+      <Breadcrumb root="Home" heading="Login In" />
 
       <div className="loginarea sp_top_100 sp_bottom_100">
         <div className="container">
@@ -60,6 +25,7 @@ const Login = () => {
               >
                 <li className="nav-item" role="presentation">
                   <button
+                    onClick={() => handelModal("login")}
                     className="single__tab__link active"
                     data-bs-toggle="tab"
                     data-bs-target="#projects__one"
@@ -70,12 +36,13 @@ const Login = () => {
                 </li>
                 <li className="nav-item" role="presentation">
                   <button
+                    onClick={() => handelModal("register")}
                     className="single__tab__link"
                     data-bs-toggle="tab"
                     data-bs-target="#projects__two"
                     type="button"
                   >
-                    Sing up
+                    Register
                   </button>
                 </li>
               </ul>
@@ -87,7 +54,9 @@ const Login = () => {
               data-aos="fade-up"
             >
               <div
-                className="tab-pane fade active show"
+                className={`tab-pane fade ${
+                  isActive === "login" ? "active show" : ""
+                }`}
                 id="projects__one"
                 role="tabpanel"
                 aria-labelledby="projects__one"
@@ -168,7 +137,9 @@ const Login = () => {
               </div>
 
               <div
-                className="tab-pane fade"
+                className={`tab-pane fade ${
+                  isActive === "register" ? "active show" : ""
+                }`}
                 id="projects__two"
                 role="tabpanel"
                 aria-labelledby="projects__two"
@@ -176,7 +147,7 @@ const Login = () => {
                 <div className="col-xl-8 offset-md-2">
                   <div className="loginarea__wraper">
                     <div className="login__heading">
-                      <h5 className="login__title">Sing Up</h5>
+                      <h5 className="login__title">Register</h5>
                       <p className="login__description">
                         Already have an account?{" "}
                         <a
