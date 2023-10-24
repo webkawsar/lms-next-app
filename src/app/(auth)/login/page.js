@@ -46,6 +46,33 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
+    if (isActive === "register") {
+      try {
+        const result = await axios.post(
+          `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`,
+          {
+            username: "webkawsar123",
+            email: "web.kawsarahmed123@gmail.com",
+            password: "abc123",
+          }
+        );
+
+        console.log(result, "result");
+
+        // show success message
+        toast.success("Registration successful!");
+      } catch (error) {
+        console.log(error?.response?.data?.error, "error");
+
+        // show error message
+        toast.error(
+          error?.response?.data?.error?.message ?? "Something went wrong!"
+        );
+      }
+
+      return;
+    }
+
     try {
       const result = await signIn("credentials", {
         redirect: false,
@@ -274,6 +301,7 @@ const Login = () => {
                               className="common__login__input"
                               type="text"
                               placeholder="First Name"
+                              {...register("firstName")}
                             />
                           </div>
                         </div>
@@ -284,6 +312,7 @@ const Login = () => {
                               className="common__login__input"
                               type="password"
                               placeholder="Last Name"
+                              {...register("lastName")}
                             />
                           </div>
                         </div>
@@ -294,6 +323,7 @@ const Login = () => {
                               className="common__login__input"
                               type="password"
                               placeholder="Username"
+                              {...register("userName")}
                             />
                           </div>
                         </div>
@@ -304,6 +334,7 @@ const Login = () => {
                               className="common__login__input"
                               type="password"
                               placeholder="Your Email"
+                              {...register("email")}
                             />
                           </div>
                         </div>
@@ -314,6 +345,7 @@ const Login = () => {
                               className="common__login__input"
                               type="password"
                               placeholder="Password"
+                              {...register("password")}
                             />
                           </div>
                         </div>
@@ -326,6 +358,7 @@ const Login = () => {
                               className="common__login__input"
                               type="password"
                               placeholder="Re-Enter Password"
+                              {...register("confirmPassword")}
                             />
                           </div>
                         </div>
@@ -341,7 +374,7 @@ const Login = () => {
                       </div>
                       <div className="login__button">
                         <a className="default__button" href="#">
-                          Log In
+                          Register
                         </a>
                       </div>
                     </form>
