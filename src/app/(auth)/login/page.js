@@ -3,17 +3,17 @@
 import Breadcrumb from "@/app/components/Breadcrumb/Breadcrumb";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaFacebookF, FaGooglePlusG } from "react-icons/fa6";
+import { FaFacebookF, FaGithub, FaGooglePlusG } from "react-icons/fa6";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const defaultValues = {
-  identifier: "",
-  password: "",
+  identifier: "web.kawsarahmed@gmail.com",
+  password: "123456",
 };
 
 const schema = yup
@@ -29,6 +29,9 @@ const schema = yup
 
 const Login = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const [isActive, setIsActive] = useState("login");
   const handelModal = (param) => {
     setIsActive(param);
@@ -45,7 +48,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const result = await signIn("credentials", {
-        redirect: true,
+        redirect: false,
         identifier: data.identifier,
         password: data.password,
       });
@@ -56,8 +59,8 @@ const Login = () => {
         // show success message
         toast.success("Login success!");
 
-        // send to
-        router.replace("/dashboard");
+        // send to destination
+        router.push("/dashboard");
       } else {
         // show error message
         toast.error("Invalid email or password!");
@@ -71,7 +74,7 @@ const Login = () => {
   };
 
   const handleGithubLogin = () => {
-    signIn("github", { redirect: "/client" });
+    signIn("github", { redirect: true, callbackUrl: "/dashboard" });
   };
 
   return (
@@ -153,6 +156,7 @@ const Login = () => {
                           type="text"
                           placeholder="Your username or email"
                           {...register("identifier")}
+                          value={defaultValues.identifier}
                         />
 
                         {errors?.identifier?.message && (
@@ -171,6 +175,7 @@ const Login = () => {
                           type="password"
                           placeholder="Password"
                           {...register("password")}
+                          value={defaultValues.password}
                         />
 
                         {errors?.password?.message && (
@@ -223,7 +228,12 @@ const Login = () => {
                         </li> */}
 
                         <li>
-                          <button onClick={handleGithubLogin}>Github</button>
+                          <button
+                            className="default__button login__button__1 d-flex align-items-center"
+                            onClick={handleGithubLogin}
+                          >
+                            <FaGithub className="mr-2" /> Github
+                          </button>
                         </li>
                       </ul>
                     </div>

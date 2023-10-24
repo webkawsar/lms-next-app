@@ -52,15 +52,22 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/${account.provider}/callback?access_token=${account?.access_token}`
-        );
-        const data = await response.json();
-
         const isGithubUser = account.provider === "github";
-        token.id = isGithubUser ? +user.id : user.user.id;
-        token.jwt = isGithubUser ? data.jwt : user.jwt;
-        token.user = isGithubUser ? data.user : user.user;
+
+        if (isGithubUser) {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/${account.provider}/callback?access_token=${account?.access_token}`
+          );
+          const data = await response.json();
+
+          token.id = +user.id;
+          token.jwt = data.jwt;
+          token.user = data.user;
+        } else {
+          token.id = user.user.id;
+          token.jwt = user.jwt;
+          token.user = user.user;
+        }
       }
 
       return token;
