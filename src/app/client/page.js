@@ -1,24 +1,21 @@
-"use client"
+"use client";
 
-import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
-
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const ClientPage = () => {
-  const session = useSession({
-      required: true,
-      onUnauthenticated() {
-          redirect('/api/auth/signin?callbackUrl=/client')
-      }
-  })
+  // const session = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect("/login?callbackUrl=/client");
+  //   },
+  // });
 
-  // console.log(session, 'client session')
+  const session = useSession();
 
+  console.log(session, "client session");
 
+  return <div>ClientPage</div>;
+};
 
-  return (
-    <div>ClientPage</div>
-  )
-}
-
-export default ClientPage
+export default ClientPage;

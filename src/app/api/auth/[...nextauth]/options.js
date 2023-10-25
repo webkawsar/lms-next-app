@@ -1,68 +1,88 @@
+import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 
+const SERVER_API_URL =
+  process.env.NEXT_PUBLIC_STRAPI_SERVER_URL || "http://127.0.0.1:1337";
+
 export const authOptions = {
-    // Configure one or more authentication providers
-    providers: [
-      CredentialsProvider({
-        name: 'Credentials',
-        credentials: {
-          username: {
-            label: 'Username',
-            type: 'text',
-            placeholder: 'username'
-          },
-          password: {
-            label: 'Password',
-            type: 'password',
-            placeholder: 'password'
-          }
-        },
-        async authorize(credentials) {
+  // Configure one or more authentication providers
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {},
+      async authorize(credentials) {
+        // database query for checking strapi user exists or not
+        try {
+          const { data } = await axios.post(
+            `${SERVER_API_URL}/api/auth/local`,
+            {
+              identifier: credentials.identifier,
+              password: credentials.password,
+            }
+          );
 
-          // console.log(credentials, 'credentials')
-          // database query 
-          const user = {id: 101, name: 'kawsar', password: '123', role: 'user'};
-          if(credentials?.username === user.name && credentials?.password === user.password) {
-            return user;
-          } else {
-            return null;
-          }
+          return data;
+        } catch (error) {
+          return null;
         }
-      }),
-      GithubProvider({
-        clientId: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET,
-        profile(githubProfile) {
-
-          // console.log(githubProfile, 'githubProfile')
-          // save into database
-
-          return {
-            ...githubProfile,
-            image: githubProfile.avatar_url,
-            id: githubProfile.id.toString(),
-            role: githubProfile.role ?? 'user'
-          }
-        }
-      })
-
-      // ...add more providers here
-    ],
-    callbacks: {
-      async jwt({ token, user }) {
-
-        // console.log(token, 'token')
-        // console.log(user, 'user')
-
-        if(user) token.role = user.role;
-        return token;
       },
-      async session({ session, token }) {
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+      profile(githubProfile) {
+        // console.log(githubProfile, "githubProfile");
 
-        if(session?.user) session.user.role = token.role
-        return session;
+        return {
+          id: githubProfile?.id?.toString(),
+          name: githubProfile.name,
+          email: githubProfile.email,
+          image: githubProfile.avatar_url,
+        };
+      },
+    }),
+
+    // ...add more providers here
+  ],
+  pages: {
+    signIn: "/login",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+        const isGithubUser = account.provider === "github";
+
+        if (isGithubUser) {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/${account.provider}/callback?access_token=${account?.access_token}`
+          );
+          const data = await response.json();
+
+          token.id = +user.id;
+          token.jwt = data.jwt;
+          token.user = data.user;
+        } else {
+          token.id = user.user.id;
+          token.jwt = user.jwt;
+          token.user = user.user;
+        }
       }
-    }
-}
 
+      return token;
+    },
+    async session({ session, token, user }) {
+      // console.log(token, "token in sesion");
+      // console.log(user, "user in session");
+      // console.log(session, "session in session");
+
+      // modify for front-end
+      session.id = token.id;
+      session.jwt = token.jwt;
+      session.user = token.user;
+
+      return session;
+    },
+  },
+};
