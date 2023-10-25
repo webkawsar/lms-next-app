@@ -67,7 +67,12 @@ const Login = ({ setIsActive }) => {
   };
 
   const handleGithubLogin = () => {
-    signIn("github", { redirect: true, callbackUrl: "/dashboard" });
+    const route = getCallbackUrl(callbackUrl);
+
+    signIn("github", {
+      redirect: true,
+      callbackUrl: `/${route ? route : "dashboard"}`,
+    });
   };
 
   return (
