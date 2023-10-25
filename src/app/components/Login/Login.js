@@ -85,13 +85,13 @@ const Login = ({ setIsActive }) => {
             <h5 className="login__title">Login</h5>
             <p className="login__description">
               Don't have an account yet?{" "}
-              <a
-                href="#"
+              <button
                 data-bs-toggle="modal"
                 data-bs-target="#registerModal"
+                onClick={() => setIsActive("register")}
               >
                 Sign up for free
-              </a>
+              </button>
             </p>
           </div>
 

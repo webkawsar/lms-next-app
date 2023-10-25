@@ -2,16 +2,9 @@
 
 import Breadcrumb from "@/app/components/Breadcrumb/Breadcrumb";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { FaFacebookF, FaGithub, FaGooglePlusG } from "react-icons/fa6";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-import { signIn } from "next-auth/react";
-import { toast } from "react-toastify";
-import { useRouter, useSearchParams } from "next/navigation";
 import Login from "@/app/components/Login/Login";
 import Register from "@/app/components/Register/Register";
+import "./login.css";
 
 const page = () => {
   // for showing modal based on tab select

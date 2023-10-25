@@ -1,0 +1,245 @@
+
+/*------------------------------
+Error
+-------------------------------*/
+.errorarea__inner {
+    text-align: center;
+  }
+  .errorarea__inner .error__img {
+    margin-bottom: 60px;
+  }
+  .errorarea__inner .error__img img {
+    width: 100%;
+  }
+  .errorarea__inner .error__text h3 {
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 80px;
+    margin: 0;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .errorarea__inner .error__text h3 {
+      font-size: 40px;
+      line-height: 58px;
+    }
+  }
+  @media (max-width: 767px) {
+    .errorarea__inner .error__text h3 {
+      font-size: 35px;
+      line-height: 40px;
+    }
+  }
+  .errorarea__inner .error__text p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .errorarea__inner .error__button {
+    margin-top: 50px;
+  }
+  .errorarea__inner .error__button a {
+    padding: 16px 43px;
+  }
+  
+  .loginarea .tab__button__wrap li.nav-item {
+    width: 50%;
+  }
+  
+  .loginarea__wraper {
+    padding: 31px 50px 50px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px 10px rgba(95, 45, 237, 0.1);
+  }
+  @media (max-width: 767px) {
+    .loginarea__wraper {
+      padding: 10px 20px 40px;
+    }
+  }
+  .loginarea__wraper .login__heading {
+    text-align: center;
+  }
+  .loginarea__wraper .login__heading .login__title {
+    font-size: 32px;
+    line-height: 1.5;
+    margin: 0 0 8px;
+  }
+  .loginarea__wraper .login__heading .login__description button {
+    position: relative;
+    background: none;
+    border: none;
+    color: var(--contentColor);
+  }
+  .loginarea__wraper .login__heading .login__description button:after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: var(--primaryColor);
+    bottom: 0;
+    left: 0;
+    transition: var(--transition);
+  }
+  .loginarea__wraper .login__heading .login__description button:hover {
+    color: var(--primaryColor);
+  }
+  .loginarea__wraper .login__heading .login__description button:hover:after {
+    width: 100%;
+  }
+  .loginarea__wraper form .login__form {
+    margin-top: 25px;
+  }
+  .loginarea__wraper form .login__form label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--contentColor);
+  }
+  .loginarea__wraper form .login__form .common__login__input {
+    background-color: transparent;
+    border: 1px solid var(--borderColor);
+    font-size: 14px;
+    font-weight: 400;
+    height: 52px;
+    padding: 3px 20px;
+    width: 100%;
+    border-radius: 5px;
+    color: var(--contentColor);
+  }
+  .loginarea__wraper form .login__form .form__check {
+    display: flex;
+  }
+  .loginarea__wraper form .login__form .form__check input {
+    width: 18px;
+    margin-right: 8px;
+  }
+  .loginarea__wraper form .login__form .form__check label {
+    margin-bottom: 0;
+  }
+  .loginarea__wraper form .login__form .login__form__link a {
+    position: relative;
+  }
+  .loginarea__wraper form .login__form .login__form__link a:after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: var(--primaryColor);
+    bottom: 0;
+    left: 0;
+    transition: var(--transition);
+  }
+  .loginarea__wraper form .login__form .login__form__link a:hover {
+    color: var(--primaryColor);
+  }
+  .loginarea__wraper form .login__form .login__form__link a:hover:after {
+    width: 100%;
+  }
+  .loginarea__wraper form .login__button {
+    margin-top: 25px;
+  }
+  .loginarea__wraper form .login__button button {
+    width: 100%;
+  }
+  .loginarea__wraper .login__social__option {
+    margin-top: 25px;
+    text-align: center;
+  }
+  .loginarea__wraper .login__social__option p {
+    position: relative;
+  }
+  .loginarea__wraper .login__social__option p::before {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: var(--borderColor4);
+    width: 40%;
+    left: 0;
+    top: 16px;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .loginarea__wraper .login__social__option p::before {
+      width: 30%;
+    }
+  }
+  @media (max-width: 767px) {
+    .loginarea__wraper .login__social__option p::before {
+      width: 30%;
+    }
+  }
+  .loginarea__wraper .login__social__option p::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background: var(--borderColor4);
+    width: 40%;
+    right: 0;
+    top: 16px;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .loginarea__wraper .login__social__option p::after {
+      width: 30%;
+    }
+  }
+  @media (max-width: 767px) {
+    .loginarea__wraper .login__social__option p::after {
+      width: 30%;
+    }
+  }
+  .loginarea__wraper .login__social__option .login__social__btn li a {
+    padding: 10px 44px;
+  }
+  .loginarea__wraper
+    .login__social__option
+    .login__social__btn
+    li
+    .login__button__1 {
+    margin-right: 20px;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .loginarea__wraper
+      .login__social__option
+      .login__social__btn
+      li
+      .login__button__1 {
+      margin-right: 10px;
+      margin-bottom: 0;
+    }
+  }
+  @media (max-width: 767px) {
+    .loginarea__wraper
+      .login__social__option
+      .login__social__btn
+      li
+      .login__button__1 {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+  
+  .loginarea {
+    position: relative;
+  }
+  
+  .login__shape__img .hero__shape {
+    position: absolute;
+  }
+  .login__shape__img .hero__shape.hero__shape__1 {
+    right: 14%;
+    top: 30%;
+    animation: 3s linear 0s infinite alternate none running dot-anim;
+  }
+  .login__shape__img .hero__shape.hero__shape__2 {
+    top: 50%;
+    left: 5%;
+    animation: 3s linear 0s infinite alternate none running dot-anim-2;
+  }
+  .login__shape__img .hero__shape.hero__shape__3 {
+    left: 50%;
+    bottom: 60px;
+    animation: cir-anim 6s linear 0s infinite alternate;
+  }
+  .login__shape__img .hero__shape.hero__shape__4 {
+    left: 50%;
+    top: 40px;
+    animation: cir-anim 6s linear 0s infinite alternate;
+  }
+  
