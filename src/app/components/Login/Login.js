@@ -153,7 +153,7 @@ const Login = ({ setIsActive }) => {
             <ul className="login__social__btn">
               <li>
                 <button className="default__button login__button__1 d-flex align-items-center">
-                  <FaFacebookF className="mr-1" /> Facebook
+                  <FaFacebookF style={{ marginRight: "4px" }} /> Facebook
                 </button>
               </li>
 
@@ -162,7 +162,7 @@ const Login = ({ setIsActive }) => {
                   className="default__button login__button__1 d-flex align-items-center"
                   onClick={handleGithubLogin}
                 >
-                  <FaGithub /> Github
+                  <FaGithub style={{ marginRight: "7px" }} /> Github
                 </button>
               </li>
             </ul>

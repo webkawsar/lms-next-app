@@ -210,7 +210,7 @@ Error
       .login__social__btn
       li
       .login__button__1 {
-      margin-right: 0;
+      margin-right: 5px;
       margin-bottom: 20px;
     }
   }
