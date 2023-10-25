@@ -107,7 +107,7 @@ const Login = ({ setIsActive }) => {
               />
 
               {errors?.identifier?.message && (
-                <div class="invalid-feedback" style={{ display: "block" }}>
+                <div className="invalid-feedback" style={{ display: "block" }}>
                   {errors?.identifier?.message}
                 </div>
               )}
@@ -123,7 +123,7 @@ const Login = ({ setIsActive }) => {
               />
 
               {errors?.password?.message && (
-                <div class="invalid-feedback" style={{ display: "block" }}>
+                <div className="invalid-feedback" style={{ display: "block" }}>
                   {errors?.password?.message}
                 </div>
               )}

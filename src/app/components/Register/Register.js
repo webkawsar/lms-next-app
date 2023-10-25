@@ -5,19 +5,65 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
+// const defaultValues = {
+//   username: "",
+//   firstName: "",
+//   lastName: "",
+//   email: "",
+//   password: "",
+//   confirmPassword: "",
+// };
+
+const defaultValues = {
+  username: "kawsar",
+  firstName: "Kawsar",
+  lastName: "Ahmed",
+  email: "web.kawsarahmed@gmail.com",
+  password: "123456",
+  confirmPassword: "123456",
+};
 
 const schema = yup
   .object({
-    identifier: yup
+    username: yup
       .string()
       .trim()
-      .required("Username or email is required")
+      .required("Username is required")
+      .min(3, "Username must be at least 3 character")
       .lowercase(),
-    password: yup.string().trim().required("Password is required"),
+    firstName: yup
+      .string()
+      .trim()
+      .required("First name is required")
+      .min(3, "Firstname must be at least 3 character"),
+    lastName: yup
+      .string()
+      .trim()
+      .required("Last name is required")
+      .min(3, "Lastname must be at least 3 character"),
+    email: yup
+      .string()
+      .trim()
+      .email("Must be a valid email")
+      .required("Email is required")
+      .lowercase(),
+    password: yup
+      .string()
+      .trim()
+      .required("Password is required")
+      .matches(/[a-z0-9]{6}/, "Must contain letter and number"),
+    confirmPassword: yup
+      .string()
+      .trim()
+      .required("Confirm password is required")
+      .oneOf([yup.ref("password")], "Confirm password don't match"),
   })
   .required();
 
 const Register = ({ setIsActive }) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -27,21 +73,25 @@ const Register = ({ setIsActive }) => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data, "register data");
     try {
-      const result = await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`,
         {
-          username: "webkawsar123",
-          email: "web.kawsarahmed123@gmail.com",
-          password: "abc123",
+          username: data.username,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
         }
       );
 
-      console.log(result, "result");
+      // console.log(response.data, "response");
 
       // show success message
-      toast.success("Registration successful!");
+      toast.success("Registration succes!. Please login");
+
+      // redirect to login
+      setIsActive("login");
     } catch (error) {
       console.log(error?.response?.data?.error, "error");
 
@@ -85,7 +135,16 @@ const Register = ({ setIsActive }) => {
                     type="text"
                     placeholder="First Name"
                     {...register("firstName")}
+                    value={defaultValues.firstName}
                   />
+                  {errors?.firstName?.message && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "block" }}
+                    >
+                      {errors?.firstName?.message}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col-xl-6">
@@ -93,10 +152,19 @@ const Register = ({ setIsActive }) => {
                   <label className="form__label">Last Name</label>
                   <input
                     className="common__login__input"
-                    type="password"
+                    type="text"
                     placeholder="Last Name"
                     {...register("lastName")}
+                    value={defaultValues.lastName}
                   />
+                  {errors?.lastName?.message && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "block" }}
+                    >
+                      {errors?.lastName?.message}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col-xl-6">
@@ -104,10 +172,19 @@ const Register = ({ setIsActive }) => {
                   <label className="form__label">Username</label>
                   <input
                     className="common__login__input"
-                    type="password"
+                    type="text"
                     placeholder="Username"
-                    {...register("userName")}
+                    {...register("username")}
+                    value={defaultValues.username}
                   />
+                  {errors?.username?.message && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "block" }}
+                    >
+                      {errors?.username?.message}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col-xl-6">
@@ -115,10 +192,19 @@ const Register = ({ setIsActive }) => {
                   <label className="form__label">Email</label>
                   <input
                     className="common__login__input"
-                    type="password"
+                    type="email"
                     placeholder="Your Email"
                     {...register("email")}
+                    value={defaultValues.email}
                   />
+                  {errors?.email?.message && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "block" }}
+                    >
+                      {errors?.email?.message}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col-xl-6">
@@ -129,7 +215,16 @@ const Register = ({ setIsActive }) => {
                     type="password"
                     placeholder="Password"
                     {...register("password")}
+                    value={defaultValues.password}
                   />
+                  {errors?.password?.message && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "block" }}
+                    >
+                      {errors?.password?.message}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col-xl-6">
@@ -140,7 +235,16 @@ const Register = ({ setIsActive }) => {
                     type="password"
                     placeholder="Re-Enter Password"
                     {...register("confirmPassword")}
+                    value={defaultValues.confirmPassword}
                   />
+                  {errors?.confirmPassword?.message && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "block" }}
+                    >
+                      {errors?.confirmPassword?.message}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -154,9 +258,9 @@ const Register = ({ setIsActive }) => {
               </div>
             </div>
             <div className="login__button">
-              <a className="default__button" href="#">
+              <button className="default__button" type="submit">
                 Register
-              </a>
+              </button>
             </div>
           </form>
         </div>

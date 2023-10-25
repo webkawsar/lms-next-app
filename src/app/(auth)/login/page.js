@@ -16,9 +16,6 @@ import Register from "@/app/components/Register/Register";
 const page = () => {
   // for showing modal based on tab select
   const [isActive, setIsActive] = useState("login");
-  const handelModal = (param) => {
-    setIsActive(param);
-  };
 
   return (
     <div>
@@ -35,7 +32,7 @@ const page = () => {
               >
                 <li className="nav-item" role="presentation">
                   <button
-                    onClick={() => handelModal("login")}
+                    onClick={() => setIsActive("login")}
                     className={`single__tab__link ${
                       isActive === "login" ? "active" : ""
                     }`}
@@ -48,7 +45,7 @@ const page = () => {
                 </li>
                 <li className="nav-item" role="presentation">
                   <button
-                    onClick={() => handelModal("register")}
+                    onClick={() => setIsActive("register")}
                     className={`single__tab__link ${
                       isActive === "register" ? "active" : ""
                     }`}
