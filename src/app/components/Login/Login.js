@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 import axios from "axios";
 import { FaFacebookF, FaGithub } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const defaultValues = {
   identifier: "web.kawsarahmed@gmail.com",
@@ -25,15 +26,10 @@ const schema = yup
   })
   .required();
 
-const Login = () => {
+const Login = ({ setIsActive }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-
-  const [isActive, setIsActive] = useState("login");
-  const handelModal = (param) => {
-    setIsActive(param);
-  };
+  // const searchParams = useSearchParams();
+  // const callbackUrl = searchParams.get("callbackUrl");
 
   const {
     register,
@@ -44,33 +40,7 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
-    if (isActive === "register") {
-      try {
-        const result = await axios.post(
-          `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`,
-          {
-            username: "webkawsar123",
-            email: "web.kawsarahmed123@gmail.com",
-            password: "abc123",
-          }
-        );
-
-        console.log(result, "result");
-
-        // show success message
-        toast.success("Registration successful!");
-      } catch (error) {
-        console.log(error?.response?.data?.error, "error");
-
-        // show error message
-        toast.error(
-          error?.response?.data?.error?.message ?? "Something went wrong!"
-        );
-      }
-
-      return;
-    }
-
+    console.log(data, "login data");
     try {
       const result = await signIn("credentials", {
         redirect: false,
@@ -84,7 +54,7 @@ const Login = () => {
         // show success message
         toast.success("Login success!");
 
-        // send to destination
+        // send to restrictred route
         router.push("/dashboard");
       } else {
         // show error message
@@ -104,7 +74,7 @@ const Login = () => {
 
   return (
     <div
-      className={`tab-pane fade ${isActive === "login" ? "active show" : ""}`}
+      className={`tab-pane fade active show`}
       id="projects__one"
       role="tabpanel"
       aria-labelledby="projects__one"

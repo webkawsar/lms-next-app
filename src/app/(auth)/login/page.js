@@ -13,97 +13,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Login from "@/app/components/Login/Login";
 import Register from "@/app/components/Register/Register";
 
-const defaultValues = {
-  identifier: "web.kawsarahmed@gmail.com",
-  password: "123456",
-};
-
-const schema = yup
-  .object({
-    identifier: yup
-      .string()
-      .trim()
-      .required("Username or email is required")
-      .lowercase(),
-    password: yup.string().trim().required("Password is required"),
-  })
-  .required();
-
 const page = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-
+  // for showing modal based on tab select
   const [isActive, setIsActive] = useState("login");
   const handelModal = (param) => {
     setIsActive(param);
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isLoading },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = async (data) => {
-    if (isActive === "register") {
-      try {
-        const result = await axios.post(
-          `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`,
-          {
-            username: "webkawsar123",
-            email: "web.kawsarahmed123@gmail.com",
-            password: "abc123",
-          }
-        );
-
-        console.log(result, "result");
-
-        // show success message
-        toast.success("Registration successful!");
-      } catch (error) {
-        console.log(error?.response?.data?.error, "error");
-
-        // show error message
-        toast.error(
-          error?.response?.data?.error?.message ?? "Something went wrong!"
-        );
-      }
-
-      return;
-    }
-
-    try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        identifier: data.identifier,
-        password: data.password,
-      });
-
-      console.log(result, "result");
-
-      if (result.ok) {
-        // show success message
-        toast.success("Login success!");
-
-        // send to destination
-        router.push("/dashboard");
-      } else {
-        // show error message
-        toast.error("Invalid email or password!");
-      }
-    } catch (error) {
-      // show error message
-      toast.error(
-        error?.response?.data?.error?.message ?? "Something went wrong!"
-      );
-    }
-  };
-
-  const handleGithubLogin = () => {
-    signIn("github", { redirect: true, callbackUrl: "/dashboard" });
   };
 
   return (
@@ -153,8 +67,11 @@ const page = () => {
               id="myTabContent"
               data-aos="fade-up"
             >
-              <Login />
-              <Register />
+              {isActive === "login" ? (
+                <Login setIsActive={setIsActive} />
+              ) : (
+                <Register setIsActive={setIsActive} />
+              )}
             </div>
           </div>
 

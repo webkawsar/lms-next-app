@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const schema = yup
   .object({
@@ -15,12 +17,7 @@ const schema = yup
   })
   .required();
 
-const Register = () => {
-  const [isActive, setIsActive] = useState("login");
-  const handelModal = (param) => {
-    setIsActive(param);
-  };
-
+const Register = ({ setIsActive }) => {
   const {
     register,
     handleSubmit,
@@ -30,53 +27,24 @@ const Register = () => {
   });
 
   const onSubmit = async (data) => {
-    if (isActive === "register") {
-      try {
-        const result = await axios.post(
-          `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`,
-          {
-            username: "webkawsar123",
-            email: "web.kawsarahmed123@gmail.com",
-            password: "abc123",
-          }
-        );
-
-        console.log(result, "result");
-
-        // show success message
-        toast.success("Registration successful!");
-      } catch (error) {
-        console.log(error?.response?.data?.error, "error");
-
-        // show error message
-        toast.error(
-          error?.response?.data?.error?.message ?? "Something went wrong!"
-        );
-      }
-
-      return;
-    }
-
+    console.log(data, "register data");
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        identifier: data.identifier,
-        password: data.password,
-      });
+      const result = await axios.post(
+        `${process.env.NEXT_PUBLIC_STRAPI_SERVER_URL}/api/auth/local/register`,
+        {
+          username: "webkawsar123",
+          email: "web.kawsarahmed123@gmail.com",
+          password: "abc123",
+        }
+      );
 
       console.log(result, "result");
 
-      if (result.ok) {
-        // show success message
-        toast.success("Login success!");
-
-        // send to destination
-        router.push("/dashboard");
-      } else {
-        // show error message
-        toast.error("Invalid email or password!");
-      }
+      // show success message
+      toast.success("Registration successful!");
     } catch (error) {
+      console.log(error?.response?.data?.error, "error");
+
       // show error message
       toast.error(
         error?.response?.data?.error?.message ?? "Something went wrong!"
@@ -86,9 +54,7 @@ const Register = () => {
 
   return (
     <div
-      className={`tab-pane fade ${
-        isActive === "register" ? "active show" : ""
-      }`}
+      className={`tab-pane fade active show`}
       id="projects__two"
       role="tabpanel"
       aria-labelledby="projects__two"
@@ -100,7 +66,7 @@ const Register = () => {
             <p className="login__description">
               Already have an account?{" "}
               <button
-                onClick={() => handelModal("login")}
+                onClick={() => setIsActive("login")}
                 data-bs-toggle="modal"
                 data-bs-target="#registerModal"
               >
