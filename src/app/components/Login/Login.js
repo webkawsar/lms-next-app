@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 import { FaFacebookF, FaGithub } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const defaultValues = {
   identifier: "web.kawsarahmed@gmail.com",
@@ -28,8 +28,9 @@ const schema = yup
 
 const Login = ({ setIsActive }) => {
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const callbackUrl = searchParams.get("callbackUrl");
+
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const {
     register,
@@ -54,8 +55,17 @@ const Login = ({ setIsActive }) => {
         // show success message
         toast.success("Login success!");
 
+        console.log(callbackUrl, "callbackUrl");
+        console.log(typeof callbackUrl, "callbackUrl");
+        const paresedRoute = callbackUrl.split("/");
+        const route = paresedRoute[paresedRoute.length - 1];
+
+        console.log(route, "route");
+
+        // const parsedRoute = cal.split()
+
         // send to restrictred route
-        router.push("/dashboard");
+        router.push(`/${route}`);
       } else {
         // show error message
         toast.error("Invalid email or password!");
