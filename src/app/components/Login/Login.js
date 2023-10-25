@@ -152,28 +152,17 @@ const Login = ({ setIsActive }) => {
 
             <ul className="login__social__btn">
               <li>
-                <a
-                  className="default__button login__button__1 d-flex align-items-center"
-                  href="#"
-                >
+                <button className="default__button login__button__1 d-flex align-items-center">
                   <FaFacebookF className="mr-1" /> Facebook
-                </a>
+                </button>
               </li>
-              {/* <li>
-            <a
-              className="default__button d-flex align-items-center"
-              href="#"
-            >
-              <FaGooglePlusG className="mr-1" /> Google
-            </a>
-          </li> */}
 
               <li>
                 <button
                   className="default__button login__button__1 d-flex align-items-center"
                   onClick={handleGithubLogin}
                 >
-                  <FaGithub className="mr-2" /> Github
+                  <FaGithub /> Github
                 </button>
               </li>
             </ul>

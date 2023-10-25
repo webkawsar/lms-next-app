@@ -184,7 +184,7 @@ Error
       width: 30%;
     }
   }
-  .loginarea__wraper .login__social__option .login__social__btn li a {
+  .loginarea__wraper .login__social__option .login__social__btn li button {
     padding: 10px 44px;
   }
   .loginarea__wraper
