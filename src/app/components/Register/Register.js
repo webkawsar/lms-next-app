@@ -115,13 +115,7 @@ const Register = ({ setIsActive }) => {
             <h5 className="login__title">Register</h5>
             <p className="login__description">
               Already have an account?{" "}
-              <button
-                onClick={() => setIsActive("login")}
-                data-bs-toggle="modal"
-                data-bs-target="#registerModal"
-              >
-                Log In
-              </button>
+              <button onClick={() => setIsActive("login")}>Log In</button>
             </p>
           </div>
 
